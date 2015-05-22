@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Writing
 {
@@ -11,12 +7,12 @@ namespace Arebis.Pdf.Writing
     {
         /// <summary>
         /// Instantiates a new page format.
-        /// Use predefined static instances for A4 and Letter.
+        /// Use predefined static instances for A3, A4, A5 and Letter.
         /// </summary>
-        /// <param name="height">Height of the page in points (1 inch = 72 points).</param>
         /// <param name="width">Width of the page in points (1 inch = 72 points).</param>
+        /// <param name="height">Height of the page in points (1 inch = 72 points).</param>
         /// <param name="orientation">Page orientation.</param>
-        public PdfPageFormat(double height, double width, PdfPageOrientation orientation = PdfPageOrientation.Portrait)
+        public PdfPageFormat(double width, double height, PdfPageOrientation orientation = PdfPageOrientation.Portrait)
         {
             this.Height = height;
             this.Width = width;
@@ -39,24 +35,44 @@ namespace Arebis.Pdf.Writing
         public PdfPageOrientation Orientation { get; private set; }
 
         /// <summary>
-        /// A4 paper format in portrait (841x595).
+        /// A3 paper format in portrait (1190x1682).
         /// </summary>
-        public static readonly PdfPageFormat A4Portrait = new PdfPageFormat(841.0, 595.0, PdfPageOrientation.Portrait);
+        public static readonly PdfPageFormat A3Portrait = new PdfPageFormat(1190.0, 1682.0, PdfPageOrientation.Portrait);
 
         /// <summary>
-        /// A4 paper format in landscape (595x841).
+        /// A3 paper format in landscape (1682x1190).
         /// </summary>
-        public static readonly PdfPageFormat A4Landscape = new PdfPageFormat(841.0, 595.0, PdfPageOrientation.Landscape);
+        public static readonly PdfPageFormat A3Landscape = new PdfPageFormat(1190.0, 1682.0, PdfPageOrientation.Landscape);
 
         /// <summary>
-        /// Letter paper format in portrait (792x612).
+        /// A4 paper format in portrait (595x841).
         /// </summary>
-        public static readonly PdfPageFormat LetterPortrait = new PdfPageFormat(792, 612.0, PdfPageOrientation.Portrait);
+        public static readonly PdfPageFormat A4Portrait = new PdfPageFormat(595.0, 841.0, PdfPageOrientation.Portrait);
 
         /// <summary>
-        /// Letter paper format in landscape (612x792).
+        /// A4 paper format in landscape (841x595).
         /// </summary>
-        public static readonly PdfPageFormat LetterLandscape = new PdfPageFormat(792, 612.0, PdfPageOrientation.Landscape);
+        public static readonly PdfPageFormat A4Landscape = new PdfPageFormat(595.0, 841.0, PdfPageOrientation.Landscape);
+
+        /// <summary>
+        /// A5 paper format in portrait (297½x420½).
+        /// </summary>
+        public static readonly PdfPageFormat A5Portrait = new PdfPageFormat(297.5, 420.5, PdfPageOrientation.Portrait);
+
+        /// <summary>
+        /// A5 paper format in landscape (420½x297½).
+        /// </summary>
+        public static readonly PdfPageFormat A5Landscape = new PdfPageFormat(297.5, 420.5, PdfPageOrientation.Landscape);
+
+        /// <summary>
+        /// Letter paper format in portrait (612x792).
+        /// </summary>
+        public static readonly PdfPageFormat LetterPortrait = new PdfPageFormat(612.0, 792, PdfPageOrientation.Portrait);
+
+        /// <summary>
+        /// Letter paper format in landscape (792x612).
+        /// </summary>
+        public static readonly PdfPageFormat LetterLandscape = new PdfPageFormat(612.0, 792, PdfPageOrientation.Landscape);
     }
 
     [Serializable]

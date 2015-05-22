@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Writing
 {
@@ -182,7 +181,7 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Draws a line from the current path to the given coordinates.
         /// </summary>
-        public void DrawLine(double x, double y)
+        public void DrawLineTo(double x, double y)
         {
             if (isInTextBlock) throw new InvalidOperationException("Must not be called between BeginText() and EndText().");
             this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.###} {1:0.###} l", x, y));
@@ -191,10 +190,10 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Draws a line given 2 coordinates (convenience method).
         /// </summary>
-        public void DrawLine2(double x1, double y1, double x2, double y2)
+        public void DrawLine(double x1, double y1, double x2, double y2)
         {
             this.BeginPath(x1, y1);
-            this.DrawLine(x2, y2);
+            this.DrawLineTo(x2, y2);
         }
 
         /// <summary>
@@ -204,7 +203,7 @@ namespace Arebis.Pdf.Writing
         {
             double x2 = x + length * Math.Cos(angleInDegrees * ToRadiansFactor);
             double y2 = y + length * Math.Sin(angleInDegrees * ToRadiansFactor);
-            this.DrawLine2(x, y, x2, y2);
+            this.DrawLine(x, y, x2, y2);
         }
 
         /// <summary>
@@ -383,8 +382,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public void SetTextStartPosition(double x, double y)
         {
-            if (!isInTextBlock) throw new InvalidOperationException("Must call BeginText() before this operation.");
-            this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.###} {1:0.###} Td", x, y));
+            this.SetTextTransformationMatrix(1.0, 0.0, 0.0, 1.0, x, y);
         }
 
         /// <summary>
@@ -449,6 +447,15 @@ namespace Arebis.Pdf.Writing
         }
 
         /// <summary>
+        /// Begins a block of text with the given options (convenience method).
+        /// </summary>
+        public void BeginText(double x, double y, PdfTextOptions options)
+        {
+            BeginText();
+            options.Apply(this, x, y);
+        }
+
+        /// <summary>
         /// Ends a block of text.
         /// </summary>
         public void EndText()
@@ -473,6 +480,16 @@ namespace Arebis.Pdf.Writing
         public void SetTextTransformationMatrix(PdfTransformationMatrix matrix)
         {
             this.SetTextTransformationMatrix(matrix.A, matrix.B, matrix.C, matrix.D, matrix.E, matrix.F);
+        }
+
+        public void SetTextOptions(PdfTextOptions textOptions, double x, double y)
+        {
+            textOptions.Apply(this, x, y);
+        }
+
+        public void SetGraphicsOptions(PdfGraphicsOptions graphicsOptions)
+        {
+            graphicsOptions.Apply(this);
         }
     }
 }

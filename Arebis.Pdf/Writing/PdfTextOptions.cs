@@ -1,9 +1,5 @@
 ﻿using Arebis.Pdf.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Writing
 {
@@ -79,7 +75,7 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Applies these options to the given script object, and sets initial coordinates.
         /// </summary>
-        public virtual void Apply(PdfScriptObject onObject, double x, double y)
+        protected internal virtual void Apply(PdfScriptObject onObject, double x, double y)
         {
             onObject.SetFillColor(this.InkColor);
             onObject.SetFont(this.Font, this.FontSize);
@@ -93,6 +89,21 @@ namespace Arebis.Pdf.Writing
                 onObject.SetLineCapStyle(this.LineCapStyle.Value);
             if (this.OutlineWidth.HasValue)
                 onObject.SetStrokeWidth(this.OutlineWidth.Value);
+        }
+
+        public double GetStringWidth(string str)
+        {
+            return this.Font.GetStringWidth(str, this.FontSize);
+        }
+
+        public String SplitText(string text, double width)
+        {
+            return this.Font.SplitText(text, this.FontSize, width);
+        }
+
+        public string TrimLength(string str, double width)
+        {
+            return this.Font.TrimLength(str, this.FontSize, width);
         }
     }
 }

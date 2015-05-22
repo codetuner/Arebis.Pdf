@@ -1,9 +1,5 @@
 ﻿using Arebis.Pdf.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Writing
 {
@@ -45,7 +41,7 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Applies these options to the given script object.
         /// </summary>
-        public virtual void Apply(PdfScriptObject onObject)
+        protected internal virtual void Apply(PdfScriptObject onObject)
         {
             onObject.SetStrokeColor(this.StrokeColor);
             onObject.SetFillColor(this.FillColor);

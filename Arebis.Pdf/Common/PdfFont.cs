@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Common
 {
@@ -72,9 +70,9 @@ namespace Arebis.Pdf.Common
                 }
             }
 
-            if (width > maxWidth) maxWidth =width;
+            if (width > maxWidth) maxWidth = width;
 
-            return (maxWidth * fontSize);
+            return (maxWidth * fontSize / 1000.0);
         }
 
         /// <summary>
@@ -84,36 +82,36 @@ namespace Arebis.Pdf.Common
         {
             text = text.Replace("\t", "    ");
             var sb = new StringBuilder(text.Length + 200);
-            var usedWidth = 0;
-            var maxWidth = (int)(1000.0 * width / fontSize);
+            var w = 0;
+            var maxW = (int)(1000.0 * width / fontSize);
             var nonSpaceCount = 0;
             for (int i = 0; i < text.Length; i++)
             {
                 var c = text[i];
                 if (c == '\r' || c == '\n')
                 {
-                    usedWidth = 0;
+                    w = 0;
                     nonSpaceCount = 0;
                     sb.Append(c);
                     continue;
                 }
                 else if (c == ' ')
                 {
-                    usedWidth += GetRawCharWidth(c);
+                    w += GetRawCharWidth(c);
                     nonSpaceCount = 0;
                     sb.Append(' ');
                 }
                 else
                 {
-                    usedWidth += GetRawCharWidth(c);
-                    if (usedWidth > maxWidth)
+                    w += GetRawCharWidth(c);
+                    if (w > maxW)
                     {
                         sb.Length = sb.Length - nonSpaceCount;
                         sb.Append('\n');
                         i -= nonSpaceCount + 1;
 
                         nonSpaceCount = 0;
-                        usedWidth = 0;
+                        w = 0;
                         continue;
                     }
                     sb.Append(c);
@@ -123,6 +121,32 @@ namespace Arebis.Pdf.Common
 
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Trims the given string to not exceed the given width.
+        /// </summary>
+        public string TrimLength(string str, double fontSize, double width)
+        {
+            var maxW = (int)(1000.0 * width / fontSize);
+            var w = 0;
+            for (int i = 0; i < str.Length; i++)
+            {
+                var c = str[i];
+                switch (c)
+                {
+                    case '\n':
+                    case '\r':
+                        w = 0;
+                        break;
+                    default:
+                        w += GetRawCharWidth(c);
+                        break;
+                }
+                if (w > maxW) return str.Substring(0, i);
+            }
+
+            return str;
         }
     }
 }

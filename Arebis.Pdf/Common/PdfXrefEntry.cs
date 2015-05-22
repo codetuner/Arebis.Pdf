@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Common
 {
     [Serializable]
-    public struct PdfXrefEntry
+    public class PdfXrefEntry
     {
         private long offset;
         private int generation;

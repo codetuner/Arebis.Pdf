@@ -44,7 +44,8 @@ namespace Arebis.Pdf.Samples
                 using (var page = writer.NewPage(PdfPageFormat.A4Portrait))
                 {
                     // Write header:
-                    page.Content.Add(headerref);
+                    page.WriteObjectRef(headerref);
+                    
 
                     // Text options template:
                     var h1 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 36);
@@ -66,7 +67,7 @@ namespace Arebis.Pdf.Samples
                     var text2 = "Åxèl Dößeçais won € 25.95";
 
                     // Write header:
-                    page.Content.Add(headerref);
+                    page.WriteObjectRef(headerref);
 
                     // Text options template:
                     var to1 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 23.3, PdfColor.Blue, 0, PdfTextRenderingMode.Fill, PdfColor.LightBlue, 1.6);
@@ -117,7 +118,7 @@ namespace Arebis.Pdf.Samples
                 using (var page = writer.NewPage(PdfPageFormat.A4Portrait))
                 {
                     // Write header:
-                    page.Content.Add(headerref);
+                    page.WriteObjectRef(headerref);
 
                     // Graphical options template:
                     var helpline = new PdfGraphicsOptions(0.0, PdfColor.Gray, PdfColor.White, PdfLineDashPattern.Small);
@@ -169,7 +170,7 @@ namespace Arebis.Pdf.Samples
                 using (var page = writer.NewPage(PdfPageFormat.A4Portrait))
                 {
                     // Write header:
-                    page.Content.Add(headerref);
+                    page.WriteObjectRef(headerref);
 
                     // Graphical options template:
                     var bo = new PdfGraphicsOptions(0.5, PdfColor.Gray, null, PdfLineDashPattern.Medium);

@@ -15,12 +15,20 @@ namespace Arebis.Pdf.Common
             using (var inputstr = new MemoryStream(bytes))
             using (var outputstr = new MemoryStream())
             {
+                // http://stackoverflow.com/questions/9050260/what-does-a-zlib-header-look-like
+#if NET40
+                using (var dstream = new System.IO.Compression.DeflateStream(outputstr, System.IO.Compression.CompressionMode.Compress))
+                {
+                    // Zlib magic header (Default Compression):
+                    outputstr.WriteByte(0x78);
+                    outputstr.WriteByte(0x9C);
+#else //NET45+
                 using (var dstream = new System.IO.Compression.DeflateStream(outputstr, System.IO.Compression.CompressionLevel.Optimal))
                 {
-                    // http://stackoverflow.com/questions/9050260/what-does-a-zlib-header-look-like
+                    // Zlib magic header (Best Compression):
                     outputstr.WriteByte(0x78);
                     outputstr.WriteByte(0xDA);
-
+#endif
                     inputstr.CopyTo(dstream);
                 }
                 return outputstr.ToArray();
