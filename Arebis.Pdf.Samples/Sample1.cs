@@ -45,7 +45,6 @@ namespace Arebis.Pdf.Samples
                 {
                     // Write header:
                     page.WriteObjectRef(headerref);
-                    
 
                     // Text options template:
                     var h1 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 36);
