@@ -58,7 +58,7 @@ A simple "Hello World" document can be created with the following code:
         using (var page = writer.NewPage(PdfPageFormat.A4Portrait))
         {
             // Draw text on the page (with given TextOptions):
-            page.DrawText(800, 40, "Hello World !", to);
+            page.DrawText(40, 800, "Hello World !", to);
         }
     }
 

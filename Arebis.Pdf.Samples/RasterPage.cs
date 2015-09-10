@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Arebis.Pdf.Samples
 {
-    class RasterPage
+    public static class RasterPage
     {
         public static void Run(string outputfilename, PdfPageFormat pageFormat)
         {
