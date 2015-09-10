@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="RasterPage.cs" />
     <None Include="Resources\ArebisLogo160.gif" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arebis.Pdf.Writing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace Arebis.Pdf.Samples
         static void Main(string[] args)
         {
             Sample1.Run(@"Sample1.pdf");
+            RasterPage.Run(@"RasterA4Portrait.pdf", PdfPageFormat.A4Portrait);
+            RasterPage.Run(@"RasterA4Landscape.pdf", PdfPageFormat.A4Landscape);
         }
     }
 }
