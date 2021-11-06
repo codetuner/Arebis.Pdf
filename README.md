@@ -3,6 +3,8 @@ Arebis.Pdf
 
 .NET PDF generation library written in C#
 
+$$Arebis.Pdf is now part of [https://github.com/codetuner/Arebis.Common/](the Arebis.Common repository).$$
+
 Installation
 ------------
 
